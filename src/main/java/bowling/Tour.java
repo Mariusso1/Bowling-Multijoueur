@@ -1,10 +1,6 @@
 package bowling;
 
-/**
- * Correspond à un tour du jeu, constitué de 1 ou 2 lancers
- * Connait son tour suivant, pour calculer le bonus éventuel
- * pour le strike ou le spare.
- */
+
 public class Tour {
 
 	protected int numero;
@@ -30,34 +26,22 @@ public class Tour {
 		suivant = next;
 	}
 
-	/**
-	 * 
-	 * @return the number of balls already thrown in this frame
-	 **/
+	
 	public int getBoulesLancees() {
 		return boulesLancees;
 	}
 
-	/**
-	 * 
-	 * @return le numéro de cette frame
-	 */
+	
 	public int getNumero() {
 		return numero;
 	}
 
-	/**
-	 * @return vrai si ce tour est fini, faux sinon
-	 */
+	
 	public boolean estTermine() {
 		return estUnStrike() || (boulesLancees == 2);
 	}
 
-	/**
-	 * enregistrer le résultat d'un lancer
-	 *
-	 * @param combien : nombre de quilles abattue à ce lancer
-	 */
+	
 	void enregistreLancer(int combien) {
 		if (combien < 0) {
 			throw new IllegalArgumentException("Ne peut pas être négatif");
@@ -77,30 +61,21 @@ public class Tour {
 		}
 	}
 
-	/**
-	 * @return vrai si ce tour est un strike, faux sinon
-	 */
+	
 	boolean estUnStrike() {
 		return quillesAbattuesLancer1 == 10;
 	}
 
-	/**
-	 * @return vrai si ce tour est un spare, faux sinon
-	 */
+	
 	boolean estUnSpare() {
 		return (quillesAbattuesLancer1 + quillesAbattuesLancer2) == 10;
 	}
 
-	/**
-	 * @return le bonus accordé par ce tour en cas de spare au tour précédent
-	 */
 	int bonusPourSpare() {
 		return quillesAbattuesLancer1;
 	}
 
-	/**
-	 * @return le bonus accordé par ce tour en cas de strike au tour précédent
-	 */
+	
 	int bonusPourStrike() {
 		if (estUnStrike()) {
 			return quillesAbattuesLancer1 + suivant.bonusPourSpare();
@@ -109,9 +84,7 @@ public class Tour {
 		}
 	}
 
-	/**
-	 * @return le score réalisé à partir de ce tour en tenant compte des bonus éventuels
-	 */
+	
 	int score() {
 		int scoreDeCeTour = 0;
 		if (estUnStrike()) {
@@ -124,9 +97,7 @@ public class Tour {
 		return scoreDeCeTour + suivant.score();
 	}
 
-	/**
-	 * @return le tour suivant ce tour
-	 */
+	
 	Tour next() {
 		return suivant;
 	}
